@@ -12,13 +12,9 @@ layout: post
 
 **Activity Selection Problem** adalah masalah optimasi klasik dalam ilmu komputer. Tujuannya adalah memilih sebanyak mungkin aktivitas yang tidak saling tumpang tindih, berdasarkan waktu mulai dan selesai.
 
----
-
 ### 🎯 Tujuan
 
 Memilih jumlah **maksimal aktivitas** yang bisa dilakukan oleh satu orang (atau sumber daya) **tanpa konflik waktu** antara aktivitas-aktivitas tersebut.
-
----
 
 ### 🚀 Solusi: Algoritma Greedy
 
@@ -31,7 +27,6 @@ Masalah ini dapat diselesaikan dengan **algoritma greedy** karena keputusan loka
 3. **Iterasi aktivitas berikutnya**:  
    Pilih jika waktu mulai ≥ waktu selesai aktivitas terakhir yang dipilih.
 
----
 
 ### 💻 Pseudocode
 
@@ -46,14 +41,10 @@ ACTIVITY-SELECTOR(s, f, n)
     return A
 ```
 
----
-
 ### ⏱️ Kompleksitas
 
 - **Waktu:** `O(n log n)` (karena proses pengurutan)
 - **Ruang:** `O(n)` (untuk menyimpan input dan hasil)
-
----
 
 ### 📦 Aplikasi Nyata
 
@@ -62,15 +53,11 @@ ACTIVITY-SELECTOR(s, f, n)
 - Penjadwalan pengiriman logistik  
 - Pengalokasian bandwidth di jaringan  
 
----
-
 ### ✅ Kelebihan
 
 - Solusi optimal untuk masalah dasar  
 - Mudah diimplementasikan dan sangat efisien  
 - Cocok sebagai pengantar algoritma greedy
-
----
 
 ### ⚠️ Keterbatasan
 
@@ -78,8 +65,6 @@ ACTIVITY-SELECTOR(s, f, n)
   - Prioritas antar aktivitas  
   - Biaya atau keuntungan variatif  
   - Batasan lokasi atau sumber daya lain
-
----
 
 ### 🧾 Kesimpulan
 
