@@ -1,5 +1,5 @@
 ---
-title: "Rat in a Maze – Pemecahan Jalur dengan Backtracking"
+title: "06 - Rat in a Maze"
 date: 2025-06-11
 categories: [Algoritma, Backtracking, Rat in a Maze]
 tags: [rat in a maze, backtracking, pemrograman, pathfinding]
@@ -66,5 +66,84 @@ Dimulai dari `(0, 0)` → tujuan `(3, 3)`
 - Pemetaan jalur dalam **game development**
 - Visualisasi pemecahan masalah dalam AI
 
+> Rat in a Maze bukan hanya masalah jalur — tetapi latihan logika, eksplorasi, dan strategi sistematis dalam menyelesaikan masalah berbasis constraint.
+
+---
+
+## 💻 Implementasi C++ – Rat in a Maze
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+bool isSafe(int x, int y, vector<vector<int>>& maze, vector<vector<bool>>& visited, int n) {
+    return (x >= 0 && x < n && y >= 0 && y < n &&
+            maze[x][y] == 1 && !visited[x][y]);
+}
+
+void solve(int x, int y, vector<vector<int>>& maze, int n, vector<string>& paths,
+           string path, vector<vector<bool>>& visited) {
+    // Basis: sampai tujuan
+    if (x == n - 1 && y == n - 1) {
+        paths.push_back(path);
+        return;
+    }
+
+    visited[x][y] = true;
+
+    int dx[] = {+1,  0,  0, -1};      // D, R, L, U
+    int dy[] = { 0, +1, -1,  0};
+    char move[] = {'D','R','L','U'};
+
+    for (int i = 0; i < 4; ++i) {
+        int newX = x + dx[i];
+        int newY = y + dy[i];
+
+        if (isSafe(newX, newY, maze, visited, n)) {
+            solve(newX, newY, maze, n, paths, path + move[i], visited);
+        }
+    }
+
+    visited[x][y] = false; // Backtrack
+}
+
+vector<string> findPaths(vector<vector<int>>& maze, int n) {
+    vector<string> paths;
+    vector<vector<bool>> visited(n, vector<bool>(n, false));
+
+    if (maze[0][0] == 1) {
+        solve(0, 0, maze, n, paths, "", visited);
+    }
+
+    return paths;
+}
+
+int main() {
+    vector<vector<int>> maze = {
+        {1, 0, 0, 0},
+        {1, 1, 0, 1},
+        {1, 1, 0, 0},
+        {0, 1, 1, 1}
+    };
+    int n = maze.size();
+
+    vector<string> result = findPaths(maze, n);
+
+    if (result.empty()) {
+        cout << "Tidak ada jalur yang ditemukan.\n";
+    } else {
+        cout << "Jalur yang ditemukan:\n";
+        for (const string& path : result) {
+            cout << path << endl;
+        }
+    }
+
+    return 0;
+}
+
+---
 
 > Rat in a Maze bukan hanya masalah jalur — tetapi latihan logika, eksplorasi, dan strategi sistematis dalam menyelesaikan masalah berbasis constraint.

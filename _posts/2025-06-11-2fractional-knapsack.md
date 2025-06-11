@@ -1,5 +1,5 @@
 ---
-title: "Fractional Knapsack - Optimisasi Greedy untuk Solusi Cepat"
+title: "02 - Fractional Knapsack"
 date: 2025-06-11
 categories: [Algoritma, Optimisasi, Fractional Knapsack]
 tags: [fractional knapsack, greedy, algoritma, struktur data]
@@ -35,6 +35,68 @@ Fractional Knapsack adalah masalah optimisasi di mana kita ingin **memaksimalkan
 2. Urutkan item berdasarkan rasio tersebut secara menurun.
 3. Ambil sebanyak mungkin item dari yang paling tinggi rasio-nya hingga tas penuh.
 4. Jika kapasitas sisa tidak cukup, ambil **sebagian** dari item terakhir.
+
+---
+
+## 💻 Contoh Implementasi C++
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Item {
+    double value, weight;
+
+    Item(double v, double w) : value(v), weight(w) {}
+};
+
+// Fungsi pembanding berdasarkan rasio value/weight
+bool cmp(Item a, Item b) {
+    return (a.value / a.weight) > (b.value / b.weight);
+}
+
+double fractionalKnapsack(double capacity, vector<Item> &items) {
+    sort(items.begin(), items.end(), cmp); // Urutkan berdasarkan rasio tertinggi
+    double totalValue = 0.0;
+
+    for (Item &item : items) {
+        if (capacity >= item.weight) {
+            capacity -= item.weight;
+            totalValue += item.value;
+        } else {
+            totalValue += item.value * (capacity / item.weight);
+            break; // tas sudah penuh
+        }
+    }
+
+    return totalValue;
+}
+
+int main() {
+    int n;
+    double capacity;
+    cout << "Masukkan jumlah item: ";
+    cin >> n;
+
+    vector<Item> items;
+    cout << "Masukkan nilai dan berat untuk tiap item:\n";
+    for (int i = 0; i < n; ++i) {
+        double value, weight;
+        cin >> value >> weight;
+        items.push_back(Item(value, weight));
+    }
+
+    cout << "Masukkan kapasitas tas: ";
+    cin >> capacity;
+
+    double maxValue = fractionalKnapsack(capacity, items);
+    cout << "Nilai maksimum yang bisa diambil = " << maxValue << endl;
+
+    return 0;
+}
 
 ---
 

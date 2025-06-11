@@ -1,5 +1,5 @@
 ---
-title: "Huffman Coding - Kompresi Data Lossless"
+title: "03 - Huffman Coding"
 date: 2025-06-11
 categories: [Algoritma, Kompresi, Huffman Coding]
 tags: [huffman coding, kompresi, algoritma]
@@ -13,11 +13,9 @@ author: Davidzen
 
 ---
 
-
 **Huffman Coding** adalah algoritma kompresi data lossless yang efisien dan banyak digunakan dalam format ZIP, JPEG, MP3, dan lainnya. Algoritma ini bekerja dengan membuat kode biner berdasarkan frekuensi karakter dalam data. Semakin sering suatu karakter muncul, semakin pendek kode binernya. Hasilnya, ukuran data menjadi jauh lebih kecil tanpa kehilangan informasi apa pun.
 
 ---
-
 
 ## 💡 Konsep Dasar
 
@@ -87,6 +85,92 @@ Contoh hasil kode Huffman:
 
 - ❌ Tidak optimal untuk data dengan distribusi karakter merata
 - ❌ Memerlukan tabel kode untuk proses dekompresi
+
+---
+
+## 💻 Implementasi C++ Huffman Coding
+
+Berikut contoh implementasi sederhana algoritma **Huffman Coding** dalam bahasa C++:
+
+```cpp
+#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+// Node Huffman
+struct Node {
+    char ch;
+    int freq;
+    Node *left, *right;
+
+    Node(char c, int f) : ch(c), freq(f), left(nullptr), right(nullptr) {}
+};
+
+// Perbandingan untuk priority_queue (min-heap)
+struct Compare {
+    bool operator()(Node* a, Node* b) {
+        return a->freq > b->freq;
+    }
+};
+
+// Traversal pohon untuk menghasilkan kode Huffman
+void buildCodes(Node* root, string str, unordered_map<char, string>& huffmanCode) {
+    if (!root) return;
+
+    if (!root->left && !root->right) {
+        huffmanCode[root->ch] = str;
+    }
+
+    buildCodes(root->left, str + "0", huffmanCode);
+    buildCodes(root->right, str + "1", huffmanCode);
+}
+
+// Fungsi utama untuk membangun Huffman Tree
+void huffmanEncoding(const string& text) {
+    unordered_map<char, int> freq;
+    for (char ch : text) freq[ch]++;
+
+    priority_queue<Node*, vector<Node*>, Compare> pq;
+    for (auto pair : freq) {
+        pq.push(new Node(pair.first, pair.second));
+    }
+
+    while (pq.size() > 1) {
+        Node* left = pq.top(); pq.pop();
+        Node* right = pq.top(); pq.pop();
+
+        Node* merged = new Node('\0', left->freq + right->freq);
+        merged->left = left;
+        merged->right = right;
+
+        pq.push(merged);
+    }
+
+    Node* root = pq.top();
+    unordered_map<char, string> huffmanCode;
+    buildCodes(root, "", huffmanCode);
+
+    cout << "Huffman Codes:\n";
+    for (auto pair : huffmanCode) {
+        cout << pair.first << " = " << pair.second << '\n';
+    }
+
+    // Encoding hasil
+    string encodedStr;
+    for (char ch : text) {
+        encodedStr += huffmanCode[ch];
+    }
+
+    cout << "\nEncoded message:\n" << encodedStr << '\n';
+}
+
+int main() {
+    string text = "BCCABBDDAECCBBAEDDCC";
+    huffmanEncoding(text);
+    return 0;
+}
 
 ---
 

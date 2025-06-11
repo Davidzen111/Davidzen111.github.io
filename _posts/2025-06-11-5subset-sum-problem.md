@@ -1,5 +1,5 @@
 ---
-title: "Subset Sum Problem – Optimasi Kombinasi dengan DP dan Backtracking"
+title: "05 - Subset Sum Problem"
 date: 2025-06-11
 categories: [Algoritma, Dynamic Programming]
 tags: [subset sum, dp, backtracking, algoritma, np-complete]
@@ -16,7 +16,7 @@ Masalah ini memiliki banyak **variasi**, bisa diselesaikan dengan pendekatan **r
 
 ---
 
-## 🧩 Definisi Formal
+## 🧩 Definisi 
 
 > Diberikan himpunan bilangan bulat `S = {s₁, s₂, ..., sₙ}` dan sebuah angka `target`, apakah ada subset dari `S` yang totalnya sama dengan `target`?
 
@@ -59,6 +59,49 @@ Contoh:
 - 🧬 **Bioinformatika**: Kombinasi ekspresi gen atau DNA  
 - 📦 **Logistik & E-Commerce**: Pemilihan item dengan batasan biaya/berat  
 - 🧠 **Kecerdasan Buatan**: Optimalisasi pilihan subset dalam pemodelan  
+
+## 💻 Implementasi c++
+
+Berikut implementasi pendekatan **dynamic programming (bottom-up)** untuk Subset Sum Problem dalam bahasa C++:
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isSubsetSum(const vector<int>& set, int target) {
+    int n = set.size();
+    vector<vector<bool>> dp(n + 1, vector<bool>(target + 1, false));
+
+    // Jika target 0, subset kosong selalu solusi
+    for (int i = 0; i <= n; i++)
+        dp[i][0] = true;
+
+    // Proses tabulasi DP
+    for (int i = 1; i <= n; i++) {
+        for (int sum = 1; sum <= target; sum++) {
+            if (set[i - 1] > sum)
+                dp[i][sum] = dp[i - 1][sum];
+            else
+                dp[i][sum] = dp[i - 1][sum] || dp[i - 1][sum - set[i - 1]];
+        }
+    }
+
+    return dp[n][target];
+}
+
+int main() {
+    vector<int> set = {3, 34, 4, 12, 5, 2};
+    int target = 9;
+
+    if (isSubsetSum(set, target))
+        cout << "✅ Subset ditemukan!" << endl;
+    else
+        cout << "❌ Tidak ada subset yang cocok." << endl;
+
+    return 0;
+}
+
 
 ---
 
