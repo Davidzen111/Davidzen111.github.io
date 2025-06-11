@@ -3,9 +3,6 @@ title: "Rat in a Maze – Pemecahan Jalur dengan Backtracking"
 date: 2025-06-11
 categories: [Algoritma, Backtracking, Rat in a Maze]
 tags: [rat in a maze, backtracking, pemrograman, pathfinding]
-layout: post
-author: Davidzen
-pin: true
 ---
 
 ## 🐭 Rat in a Maze Problem
