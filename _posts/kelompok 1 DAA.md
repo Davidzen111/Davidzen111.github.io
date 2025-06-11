@@ -1,66 +1,86 @@
 ---
-title: "01-Activity Selection Problem"
+title: "Activity Selection Problem - Solusi Greedy untuk Penjadwalan Optimal"
 date: 2025-06-10 09:00:00 +0700
-categories: 
-tags: [c++, Activity Selection]
+categories: [Algoritma, Greedy]
+tags: [C++, Activity Selection, Greedy Algorithm]
+author: Davidzen
+pin: true
 layout: post
 ---
 
 ## 🧠 Activity Selection Problem
 
-**Activity Selection Problem** adalah masalah optimasi klasik dalam ilmu komputer yang bertujuan memilih sebanyak mungkin aktivitas yang tidak saling tumpang tindih berdasarkan waktu mulai dan selesai.
+**Activity Selection Problem** adalah masalah optimasi klasik dalam ilmu komputer. Tujuannya adalah memilih sebanyak mungkin aktivitas yang tidak saling tumpang tindih, berdasarkan waktu mulai dan selesai.
 
-### 💡 Tujuan:
-Memilih jumlah maksimal aktivitas yang bisa dilakukan oleh satu orang atau satu sumber daya, tanpa ada dua aktivitas yang tumpang tindih waktunya.
+---
+
+### 🎯 Tujuan
+
+Memilih jumlah **maksimal aktivitas** yang bisa dilakukan oleh satu orang (atau sumber daya) **tanpa konflik waktu** antara aktivitas-aktivitas tersebut.
 
 ---
 
 ### 🚀 Solusi: Algoritma Greedy
 
-Masalah ini dapat diselesaikan secara efisien menggunakan **algoritma greedy**. Strateginya:
+Masalah ini dapat diselesaikan dengan **algoritma greedy** karena keputusan lokal yang optimal menghasilkan solusi global yang optimal.
 
-1. **Urutkan aktivitas berdasarkan waktu selesai (finish time).**
-2. **Pilih aktivitas pertama (selesai paling awal).**
-3. **Pilih aktivitas selanjutnya jika waktu mulai ≥ waktu selesai aktivitas sebelumnya.**
+**Langkah-langkah:**
+
+1. **Urutkan aktivitas berdasarkan waktu selesai (finish time).**  
+2. **Pilih aktivitas pertama** (yang selesai paling awal).  
+3. **Iterasi aktivitas berikutnya**:  
+   Pilih jika waktu mulai ≥ waktu selesai aktivitas terakhir yang dipilih.
 
 ---
 
-### 🧾 Pseudocode:
+### 💻 Pseudocode
+
 ```text
 ACTIVITY-SELECTOR(s, f, n)
-    A = {a1}      // Pilih aktivitas pertama
+    A = {a1}         // Aktivitas pertama dipilih
     j = 1
     for i = 2 to n
         if s[i] >= f[j]
             A = A ∪ {ai}
             j = i
     return A
-
-### ⏱️ Kompleksitas:
-Waktu: O(n log n) → karena proses pengurutan.
-
-Ruang: O(n) → untuk menyimpan input dan hasil.
+```
 
 ---
 
-### 📦 Aplikasi Nyata:
-Penjadwalan kelas, laboratorium, dan ruang meeting
+### ⏱️ Kompleksitas
 
-Penjadwalan proses CPU
-
-Jadwal pengiriman logistik
-
-Alokasi bandwidth di jaringan
-
-### ✅ Kelebihan:
-Solusi sederhana dan optimal untuk kasus dasar
-
-Efisien dan mudah diimplementasikan
+- **Waktu:** `O(n log n)` (karena proses pengurutan)
+- **Ruang:** `O(n)` (untuk menyimpan input dan hasil)
 
 ---
 
-### ⚠️ Keterbatasan:
-Tidak cocok untuk masalah dengan banyak batasan tambahan seperti prioritas, biaya, atau lokasi.
+### 📦 Aplikasi Nyata
 
-### Kesimpulan:
-Activity Selection Problem menyajikan cara cerdas untuk menyusun jadwal tanpa konflik waktu. Algoritma greedy menjadi solusi optimal dengan efisiensi tinggi. Untuk masalah yang lebih kompleks, dapat dipertimbangkan pendekatan lain seperti pemrograman dinamis atau algoritma heuristik.
+- Penjadwalan kelas dan ruang pertemuan  
+- Penjadwalan CPU dalam sistem operasi  
+- Penjadwalan pengiriman logistik  
+- Pengalokasian bandwidth di jaringan  
+
+---
+
+### ✅ Kelebihan
+
+- Solusi optimal untuk masalah dasar  
+- Mudah diimplementasikan dan sangat efisien  
+- Cocok sebagai pengantar algoritma greedy
+
+---
+
+### ⚠️ Keterbatasan
+
+- Tidak cocok untuk kasus yang lebih kompleks dengan:
+  - Prioritas antar aktivitas  
+  - Biaya atau keuntungan variatif  
+  - Batasan lokasi atau sumber daya lain
+
+---
+
+### 🧾 Kesimpulan
+
+Activity Selection Problem adalah contoh ideal dari masalah yang bisa diselesaikan secara efisien dengan algoritma greedy. Cocok untuk pemula yang ingin memahami **penjadwalan optimal berbasis keputusan lokal**. Untuk kasus yang lebih kompleks, pendekatan seperti **pemrograman dinamis** atau **heuristik** mungkin lebih tepat.
