@@ -1,4 +1,3 @@
-
 ---
 title: "Breadth-First Search (BFS) – Penelusuran Graf Berbasis Antrian"
 date: 2025-06-11
@@ -6,7 +5,7 @@ categories: [Algoritma, Struktur Data]
 tags: [bfs, graph traversal, antrian, algoritma]
 layout: post
 author: Davidzen
-pin:
+pin: true
 ---
 
 ## 🔍Breadth-First Search (BFS)?
